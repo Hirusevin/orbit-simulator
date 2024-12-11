@@ -236,15 +236,24 @@
       }
 
       update() {
-        let force = p5.Vector.sub(star.pos, this.pos);
-        let distance = force.mag();
-        force.normalize();
-        let strength = (G * star.mass * this.mass) / (distance * distance);
-        force.mult(strength);
-        let acceleration = p5.Vector.div(force, this.mass);
-        this.vel.add(p5.Vector.mult(acceleration, dt));
-        this.pos.add(p5.Vector.mult(this.vel, dt));
-      }
+    // Menghitung gaya antara bintang dan planet
+    let force = p5.Vector.sub(star.pos, this.pos);
+    let distance = force.mag();
+    force.normalize();
+    
+    // Menghitung kekuatan gaya gravitasi
+    let strength = (G * star.mass * this.mass) / (distance * distance);
+    force.mult(strength);
+    
+    // Menghitung percepatan
+    let acceleration = p5.Vector.div(force, this.mass);
+    
+    // Memperbarui kecepatan dengan persamaan Euler
+    this.vel.add(p5.Vector.mult(acceleration, dt));
+    
+    // Memperbarui posisi dengan persamaan Euler
+    this.pos.add(p5.Vector.mult(this.vel, dt));
+}
 
       show() {
         fill(100, 200, 255);
